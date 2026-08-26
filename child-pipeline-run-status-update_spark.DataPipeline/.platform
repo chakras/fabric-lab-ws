@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "child-pipeline-run-status-update_spark"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "496a8f99-aadc-91a5-41a9-7f90bc127271"
+  }
+}

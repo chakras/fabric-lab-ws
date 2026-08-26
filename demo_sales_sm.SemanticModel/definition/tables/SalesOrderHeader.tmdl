@@ -1,0 +1,324 @@
+/// Sales order header records one row per customer order, capturing order dates, status, customer, sales territory, shipping, billing, and financial totals. Numeric amounts should be aggregated by sum where appropriate; identifier fields should be used for relationships and filtering, not summed. Use for order lifecycle, revenue, tax, freight, and fulfillment reporting.
+table SalesOrderHeader
+	lineageTag: a639abca-eca0-4b70-b3cd-b78c01ab138e
+	sourceLineageTag: [dbo].[SalesOrderHeader]
+
+	/// Unique identifier for each sales order header record. Use this as a key to relate order details and track a specific order. Do not summarize or aggregate this column; it should be used for filtering, joining, and row-level identification only.
+	column SalesOrderID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 63fb9155-e50f-4c09-9022-256d75f42d59
+		sourceLineageTag: SalesOrderID
+		summarizeBy: none
+		sourceColumn: SalesOrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Revision number assigned to a sales order header to track edits or version changes. Use for auditing and order history analysis, not as a business metric. Summarize as **Do not summarize**; each value identifies an order revision rather than a measure to aggregate.
+	column RevisionNumber
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: dd5317ad-bacf-4fd8-88dc-206713635844
+		sourceLineageTag: RevisionNumber
+		summarizeBy: sum
+		sourceColumn: RevisionNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The date and time when the sales order was created. Use this field to analyze sales trends, order timing, and period-based performance. Treat as a date/time dimension for filtering and grouping; do not summarize or aggregate this column.
+	column OrderDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 00b73755-f9d6-4be0-8de7-0ce707df4f5a
+		sourceLineageTag: OrderDate
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Planned date when the sales order is due to be fulfilled. Use this field to track delivery commitments, aging, and schedule performance. This is a date value and should not be summed; use for grouping, filtering, and trend analysis by due date.
+	column DueDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 74e17fca-951e-4579-b957-eca59b56a98e
+		sourceLineageTag: DueDate
+		summarizeBy: none
+		sourceColumn: DueDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Shipment date and time for each sales order header, showing when the order was shipped to the customer. Use this field to analyze shipping timeliness, fulfillment trends, and delivery performance. Do not summarize this column; treat it as a date attribute for filtering, grouping, and time-based analysis.
+	column ShipDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 7d89b810-78d7-4279-82f1-beadf4be85bb
+		sourceLineageTag: ShipDate
+		summarizeBy: none
+		sourceColumn: ShipDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Represents the current business status of each sales order, such as open, approved, or completed. Use it to filter and group orders by lifecycle stage. Do not summarize this field; it is a status code and should be counted or analyzed by category, not summed.
+	column Status
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: 039d51e1-946d-44b7-93e1-0ce14ebf3d64
+		sourceLineageTag: Status
+		summarizeBy: sum
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the sales order was placed online. Use this field to segment and analyze orders by sales channel, such as online versus non-online. Do not summarize this field; treat it as a categorical flag for grouping, filtering, and counting orders.
+	column OnlineOrderFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 92e68de4-11e2-4988-bcf0-cc670dc2f290
+		sourceLineageTag: OnlineOrderFlag
+		summarizeBy: none
+		sourceColumn: OnlineOrderFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique business identifier for each sales order header. Use to track, search, and relate order records across reports and tables. Do not summarize or aggregate this field; treat it as a key and use it for filtering, grouping, and row-level identification only.
+	column SalesOrderNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 00797d5b-7cc3-4ae6-a29e-c7c4db7f19d6
+		sourceLineageTag: SalesOrderNumber
+		summarizeBy: none
+		sourceColumn: SalesOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer’s purchase order number associated with the sales order header. Use this field to track, match, and reference the customer’s original order request across systems. Do not summarize this field; treat it as a text identifier or reference value, not a numeric measure.
+	column PurchaseOrderNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 114f6b0c-187d-4900-99fb-996a7e302b56
+		sourceLineageTag: PurchaseOrderNumber
+		summarizeBy: none
+		sourceColumn: PurchaseOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer account number associated with the sales order. Use this field to identify the account placing the order and to link orders to customer records. Do not summarize or aggregate this column; treat it as a unique business identifier.
+	column AccountNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ae407751-43a6-42af-95cd-f0cad159057e
+		sourceLineageTag: AccountNumber
+		summarizeBy: none
+		sourceColumn: AccountNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// CustomerID identifies the customer associated with each sales order. Use it to group, filter, and relate orders to customer data. This is a key field and should not be summed or averaged; treat it as an identifier only.
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fe9fae84-57d0-465d-afaf-ed561faa80d2
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sales representative identifier associated with the sales order header. Use this field to analyze order performance by salesperson or to relate orders to employee records. This is a key identifier and should not be summed; treat it as a category or lookup key, not a business measure.
+	column SalesPersonID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cbb54c8c-d7e0-4872-848a-2ec681e8b73b
+		sourceLineageTag: SalesPersonID
+		summarizeBy: none
+		sourceColumn: SalesPersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sales territory key identifying the geographic sales region assigned to the order. Use this field to group, filter, and report sales performance by territory. Do not sum or average this value; use it as a categorical identifier rather than a measurable amount.
+	column TerritoryID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: dca28bb6-4679-4c16-b9a7-268d7f9df3ab
+		sourceLineageTag: TerritoryID
+		summarizeBy: none
+		sourceColumn: TerritoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for the billing address associated with the sales order. Use it to relate orders to the customer’s invoice location or billing address details. Treat as a key and do not sum or average; use only for lookups, filtering, and relationships.
+	column BillToAddressID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: dc50d51e-b07f-442d-9589-2c1bb615a00e
+		sourceLineageTag: BillToAddressID
+		summarizeBy: count
+		sourceColumn: BillToAddressID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identifier for the shipping address associated with the sales order. Use this as a relational key to link the order to the destination address in the customer or address dimension. Do not summarize or aggregate; treat as a unique reference value.
+	column ShipToAddressID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e5cf7680-ddba-49ae-b772-0a5f21fa8b59
+		sourceLineageTag: ShipToAddressID
+		summarizeBy: count
+		sourceColumn: ShipToAddressID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identifier for the shipping method used on the sales order header. Use to relate orders to the carrier/service selected for shipment. Do not sum or average; treat as a key and use only for grouping, filtering, or joining to shipping method details.
+	column ShipMethodID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5e112dfe-b214-4767-8fce-a3570aa674fe
+		sourceLineageTag: ShipMethodID
+		summarizeBy: count
+		sourceColumn: ShipMethodID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for the credit card used on the sales order. Use to relate the order to the associated payment method or card record. Do not sum or average this field; treat it as an identifier and use only for grouping, filtering, or joining.
+	column CreditCardID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8b5ae2b4-4268-4712-8b36-9e466bbce370
+		sourceLineageTag: CreditCardID
+		summarizeBy: count
+		sourceColumn: CreditCardID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Authorization code returned by the card processor after a credit card payment is approved for the sales order. Use this field to trace or reconcile payment approval status. Text values should not be summarized; treat as a transaction-level reference, not a grouping or aggregate field.
+	column CreditCardApprovalCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d91c9057-ede8-41c8-bf98-1d286d073cbd
+		sourceLineageTag: CreditCardApprovalCode
+		summarizeBy: none
+		sourceColumn: CreditCardApprovalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// CurrencyRateID identifies the exchange rate record applied to a sales order. Use it to link orders to the correct currency conversion details for reporting and audit tracing. Treat as an identifier, not a measure; do not summarize or aggregate this column.
+	column CurrencyRateID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 41935970-bd8c-4ac2-a95c-a55e468ae205
+		sourceLineageTag: CurrencyRateID
+		summarizeBy: count
+		sourceColumn: CurrencyRateID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// SubTotal is the sales amount before taxes, freight, and other charges for each sales order. Use it to analyze order value and revenue trends. Summarize as **Sum** for reporting, and avoid averaging unless comparing typical order value.
+	column SubTotal
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: ead9ff9a-a8fa-485d-8b13-175c3e8d42c4
+		sourceLineageTag: SubTotal
+		summarizeBy: sum
+		sourceColumn: SubTotal
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Tax amount charged on the sales order. Use this field to analyze tax collected by order, customer, product, or time period. Sum this numeric value for reporting and totals; do not average or count it except for diagnostic checks.
+	column TaxAmt
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 5ad63022-2f76-4114-a3f3-122dae5e5591
+		sourceLineageTag: TaxAmt
+		summarizeBy: sum
+		sourceColumn: TaxAmt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Freight is the shipping cost charged for each sales order. Use it to analyze delivery expenses, logistics performance, and order profitability. Summarize as **Sum** for total freight costs across orders; avoid averaging unless comparing typical shipping cost per order.
+	column Freight
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 34eddd68-5941-439b-ad2a-58e894598670
+		sourceLineageTag: Freight
+		summarizeBy: sum
+		sourceColumn: Freight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Total amount due for the sales order, including subtotal, taxes, and freight. Use this measure to analyze order value, revenue, and financial performance. Sum across orders for reporting; avoid averaging unless comparing typical order value.
+	column TotalDue
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 1112d0b9-7a1d-48fc-8316-82d609520c01
+		sourceLineageTag: TotalDue
+		summarizeBy: sum
+		sourceColumn: TotalDue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Free-text notes entered with the sales order header, typically used to capture special instructions, exceptions, or additional context for the order. Do not summarize or aggregate this text column; use it for review, search, or display only.
+	column Comment
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c70ccd51-b2c8-42bf-8d98-4c3c60e7be7c
+		sourceLineageTag: Comment
+		summarizeBy: none
+		sourceColumn: Comment
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique row identifier for each sales order header record. Intended for system tracking and record-level lookup only. Do not summarize or aggregate this field; use it as an identifier and keep it at the individual order header level.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1c291c1c-61ee-4cd8-a4d3-b10b258f7f8d
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the sales order header was last modified. Use this field to analyze recent updates, audit changes, and track order lifecycle timing. This is a date/time attribute and should not be summarized or aggregated; use it for grouping, filtering, and sorting only.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: ec393ae7-e0c2-44df-84f4-a7ae53a420be
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesOrderHeader = entity
+		mode: directLake
+		source
+			entityName: SalesOrderHeader
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

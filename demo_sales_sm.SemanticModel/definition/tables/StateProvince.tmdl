@@ -1,0 +1,110 @@
+/// **Business purpose:** Stores the master list of states and provinces, including their codes, names, country/region assignment, and sales territory mapping for geographic reporting and address validation.
+/// 
+/// **Expected grain:** One row per state or province. Use **StateProvinceID** as the unique identifier; do not sum key fields. Numeric flags and IDs are for filtering, not aggregation.
+/// 
+/// **Reporting usage:** Supports regional analysis, territory rollups, and geographic slicing by state/province, country/region, and territory.
+table StateProvince
+	lineageTag: 6b2b6fa9-f357-4296-a372-e13a54cef0cb
+	sourceLineageTag: [dbo].[StateProvince]
+
+	/// Unique identifier for each state or province record. Use this key to relate the StateProvince table to other location and address tables. This column should not be summed, averaged, or otherwise summarized.
+	column StateProvinceID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f71a5772-1432-407b-8ca7-36eabd56e160
+		sourceLineageTag: StateProvinceID
+		summarizeBy: none
+		sourceColumn: StateProvinceID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// StateProvinceCode stores the business code that uniquely identifies a state or province. Use it as a key or for matching records across systems. Do not summarize this field; display it as a category or identifier only.
+	column StateProvinceCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 73a418ac-cc14-4db5-990c-4c929cc202a3
+		sourceLineageTag: StateProvinceCode
+		summarizeBy: none
+		sourceColumn: StateProvinceCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Country/region code for each state or province. Use this field to identify the parent country or region in geographic reporting and filtering. Text identifier only; do not summarize or aggregate.
+	column CountryRegionCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 519f22ea-47af-44cf-b48a-38832f178472
+		sourceLineageTag: CountryRegionCode
+		summarizeBy: none
+		sourceColumn: CountryRegionCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the state or province is the only one in its country or region. Use this flag to filter, segment, or validate geographic hierarchy logic. Do not summarize this field; treat it as a single yes/no attribute, not an additive measure.
+	column IsOnlyStateProvinceFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: df74e6ea-82dc-420a-96ea-b1e8317a38fd
+		sourceLineageTag: IsOnlyStateProvinceFlag
+		summarizeBy: none
+		sourceColumn: IsOnlyStateProvinceFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// State or province name used to identify the geographic region in business reporting. Use this field to group, filter, and label records by location. Do not summarize this text field; treat it as a descriptive attribute, not a measure.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 82e3d7dd-1edc-4656-a006-d5f8e96e7893
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Territory identifier for the state or province record. Used to relate this table to sales territory and geography dimensions in reporting. Do not sum or average; treat as a key and use only for grouping, filtering, or relationships.
+	column TerritoryID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bfc0b3dd-0c71-47d6-9c1d-1314e1924ca8
+		sourceLineageTag: TerritoryID
+		summarizeBy: none
+		sourceColumn: TerritoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique row-level identifier for each StateProvince record. Used to track and reference a specific state or province in business processes and integrations. Do not aggregate or summarize this field; it should be treated as an identifier only.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7931c76b-1e86-4377-99d7-15a069e29aa9
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tracks the date and time when the state or province record was last updated. Use this column for audit and change-tracking analysis. Do not summarize this field; treat it as a point-in-time attribute for filtering, sorting, and identifying the most recent record changes.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 1d9ba2fa-065c-4ddf-9e6a-48082d1d16a6
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition StateProvince = entity
+		mode: directLake
+		source
+			entityName: StateProvince
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

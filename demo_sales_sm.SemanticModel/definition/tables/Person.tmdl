@@ -1,0 +1,168 @@
+/// **Business purpose:**  
+/// Stores master data for people associated with the business, including customers, employees, or contacts, with names, contact details, and demographic attributes.
+/// 
+/// **Expected grain:**  
+/// One row per person. Use **BusinessEntityID** as the unique identifier.
+/// 
+/// **Reporting usage:**  
+/// Use for customer and contact analysis, name display, and demographic segmentation. Text attributes are for filtering and grouping; numeric fields like **EmailPromotion** should be summed only when counting promotion flags or used as a categorical indicator.
+table Person
+	lineageTag: 31343278-9423-406a-b021-69eea6ed7418
+	sourceLineageTag: [dbo].[Person]
+
+	/// Unique identifier for each person record in the business system. Use this key to link Person to related tables and to identify a single individual. Do not sum or average this field; treat it as a non-additive identifier.
+	column BusinessEntityID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4404d389-4c53-4153-8b02-353ab8221503
+		sourceLineageTag: BusinessEntityID
+		summarizeBy: none
+		sourceColumn: BusinessEntityID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Person type classification for each individual, such as customer, employee, vendor, or contact. Use this column to segment people by role in reporting and filtering. Do not summarize this field; it is a categorical descriptor, not a numeric measure.
+	column PersonType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: e91faf90-d81a-473b-8700-22221eb373f3
+		sourceLineageTag: PersonType
+		summarizeBy: none
+		sourceColumn: PersonType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the person’s name is stored in a formal style. Use this flag to identify records requiring styled name formatting or presentation rules. This is a binary attribute and should not be summarized; use only as a filter or label.
+	column NameStyle
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 14402c05-e5c6-44fa-9dc3-fe54be8db0c6
+		sourceLineageTag: NameStyle
+		summarizeBy: none
+		sourceColumn: NameStyle
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Courtesy title or salutation used to address a person, such as Mr., Ms., Dr., or Prof. Use for display, search, and demographic grouping. Do not aggregate or summarize this text field.
+	column Title
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b597d0f8-48f4-4034-a7bc-fee437bbe394
+		sourceLineageTag: Title
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Given name of the person used to identify and display the individual in business reports and records. Use for labeling, filtering, and search, not for numeric analysis. Text field should not be summarized or aggregated.
+	column FirstName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7451fbcd-fcd6-41b2-9f2e-88b539cb46b4
+		sourceLineageTag: FirstName
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Middle name of the person as recorded in the source system. Use for identifying or displaying a person’s full legal or preferred name. Text field; do not summarize or aggregate.
+	column MiddleName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7d6a3af0-0527-4b8c-a71f-93f1584cfb20
+		sourceLineageTag: MiddleName
+		summarizeBy: none
+		sourceColumn: MiddleName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Surname of the person used to identify and search individuals in business records. Use for display, filtering, and matching with other person details. Do not summarize; treat as a text attribute and use as a label, not a metric.
+	column LastName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 730f1794-9e6f-450f-b95b-4b8e110ebdd3
+		sourceLineageTag: LastName
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Suffix for a person’s name, such as Jr., Sr., or III. Use this field to identify naming distinctions in customer or employee records. Do not summarize; treat as a descriptive text attribute, not a numeric measure.
+	column Suffix
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ded00e06-41f3-4fec-873b-c8a84cec3729
+		sourceLineageTag: Suffix
+		summarizeBy: none
+		sourceColumn: Suffix
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the person has opted in to receive email promotions. Use this field to segment marketing communication preferences and track promotional consent status. Sum or average only when analyzing counts across people; otherwise treat as a categorical flag and do not aggregate for reporting individual records.
+	column EmailPromotion
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 10b4f263-dc34-4352-aa58-154e978ffb4e
+		sourceLineageTag: EmailPromotion
+		summarizeBy: sum
+		sourceColumn: EmailPromotion
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Additional contact details for a person, such as alternate phone numbers, email addresses, or other communication preferences. Use this field to support customer service and outreach activities. Text column; do not summarize. Treat as descriptive information, not a key.
+	column AdditionalContactInfo
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 615a4bb7-7336-4cd9-95d5-dfc6f4b666e3
+		sourceLineageTag: AdditionalContactInfo
+		summarizeBy: none
+		sourceColumn: AdditionalContactInfo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business attributes describing a person’s background or profile details, such as age band, gender, marital status, or similar characteristics. Use this field to segment and analyze populations in reports. Text field; do not summarize or aggregate.
+	column Demographics
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1cba2549-2dd9-4f12-955d-6f3462014810
+		sourceLineageTag: Demographics
+		summarizeBy: none
+		sourceColumn: Demographics
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique business identifier for each person record. Use this field to identify and relate person rows across tables; do not use it for counts or totals. As a text key, it should not be summarized or aggregated.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 9b3a06fa-fe38-4b4e-b7a7-417a12286567
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time the person record was last updated. Use this field to track data freshness, audit changes, and identify recently modified records. Do not summarize this date/time field; use it only for filtering, sorting, or change analysis.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: deac50b0-3288-41ab-bd59-037b05c28ff5
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Person = entity
+		mode: directLake
+		source
+			entityName: Person
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

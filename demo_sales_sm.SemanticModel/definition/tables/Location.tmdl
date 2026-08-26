@@ -1,0 +1,81 @@
+/// **Business purpose:** Stores the master list of business locations and their operational attributes, including location name, cost rate, availability status, and last update date.
+/// 
+/// **Expected grain:** One row per unique location. `LocationID` is the primary key and should be used only as an identifier, not aggregated.
+/// 
+/// **Reporting usage:** Use for location-based reporting, cost analysis using `CostRate` as an average or sum as appropriate, availability tracking, and filtering trends by `ModifiedDate`.
+table Location
+	lineageTag: d61820db-5915-46f8-9c20-a46215eac70c
+	sourceLineageTag: [dbo].[Location]
+
+	/// Unique identifier for each Location record. Use this key to relate the Location table to other business entities. Do not summarize or aggregate this column; it should be treated as an identifier only.
+	column LocationID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: b85afa80-3f3e-46ff-92e0-eea7cf94d6e2
+		sourceLineageTag: LocationID
+		summarizeBy: count
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Location name used to identify and label each business location, site, or facility. Use this field for reporting, filtering, and grouping locations in visuals and slicers. Do not summarize or aggregate this text field; display it as a category or identifier.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0ffb934c-9a01-42eb-a16d-efc00c7d523e
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Standard cost rate for a location, representing the expected or assigned cost per unit for that site. Use this field to analyze location-based costing, pricing, or margin impact. Summarize only when a weighted average or total cost is business-appropriate; otherwise display at the row level.
+	column CostRate
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 4)
+		lineageTag: b3839d6c-0e4d-45fc-b91a-9a244470746d
+		sourceLineageTag: CostRate
+		summarizeBy: sum
+		sourceColumn: CostRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Availability indicates the proportion or level of location capacity that is available for business use. Use this field to compare site readiness, coverage, or service availability across locations. Summarize as an average or total only if appropriate to the business context; avoid counting it as a key.
+	column Availability
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(8, 2)
+		lineageTag: fb7433a3-d07f-4cd5-a2f6-f2dad82f395a
+		sourceLineageTag: Availability
+		summarizeBy: sum
+		sourceColumn: Availability
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Indicates the date and time when the location record was last updated. Use this field to track data freshness, audit changes, or analyze updates over time. Date/time values should not be summed; use counts, minimum, maximum, or time-based grouping instead.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: d90c3d65-988d-45ea-a5b7-bbcafa402504
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Location = entity
+		mode: directLake
+		source
+			entityName: Location
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

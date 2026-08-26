@@ -1,0 +1,102 @@
+/// **Business purpose:** Stores daily foreign exchange rates between a source currency and a target currency for financial valuation, conversion, and reporting.
+/// 
+/// **Expected grain:** One row per currency pair per rate date, identified by CurrencyRateID and the combination of CurrencyRateDate, FromCurrencyCode, and ToCurrencyCode.
+/// 
+/// **Reporting usage:** Use AverageRate and EndOfDayRate as rate measures; aggregate numeric values carefully, typically by averaging only when analyzing trends.
+table CurrencyRate
+	lineageTag: 34c9593d-367d-437c-b0a2-a02d5584502c
+	sourceLineageTag: [dbo].[CurrencyRate]
+
+	/// Unique identifier for each currency exchange rate record. Use this column to distinguish individual rate entries and relate the currency rate table to other data. Do not summarize or aggregate this key field; treat it as a non-additive identifier.
+	column CurrencyRateID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 603e08fd-4648-4683-a8f3-4a958c390eed
+		sourceLineageTag: CurrencyRateID
+		summarizeBy: count
+		sourceColumn: CurrencyRateID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the currency exchange rate was recorded. Use this field to analyze rate changes over time, support currency trend reporting, and align rates to transactions by date. Do not summarize this field; use it as a timeline or join/filter attribute.
+	column CurrencyRateDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 570209b1-6ad0-432f-bdf9-fb6b6e3052f2
+		sourceLineageTag: CurrencyRateDate
+		summarizeBy: none
+		sourceColumn: CurrencyRateDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The source currency code for each exchange rate record. Use this to identify the currency being converted from and to relate rates to currency dimensions or transactions. Do not summarize this field; it is an identifier value and should be used for grouping, filtering, or joining only.
+	column FromCurrencyCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: dd44efb0-ad84-4b1c-b3cb-0c9537165643
+		sourceLineageTag: FromCurrencyCode
+		summarizeBy: none
+		sourceColumn: FromCurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Target currency code used in currency conversion rates. Use this field to identify the currency being converted to and to relate exchange-rate records to a specific currency. Do not summarize this text field; use it as a category or join key.
+	column ToCurrencyCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7ea788c7-0575-44f0-8769-72429a3efa61
+		sourceLineageTag: ToCurrencyCode
+		summarizeBy: none
+		sourceColumn: ToCurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Average exchange rate for the currency during the period. Use this measure to convert values between currencies or analyze currency trends. Aggregate carefully; typically average or weighted average is appropriate, not sum.
+	column AverageRate
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 2cdae627-25e1-4a10-8684-a9dc9d1b8d0e
+		sourceLineageTag: AverageRate
+		summarizeBy: sum
+		sourceColumn: AverageRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Daily closing exchange rate used to convert amounts between currencies at end of business day. Use this rate for financial reporting, valuation, and currency conversion on the specified date. Summarize by **average** or **last** only when appropriate; avoid totaling rates.
+	column EndOfDayRate
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 9efa913b-654c-4873-a94a-8698c8432e93
+		sourceLineageTag: EndOfDayRate
+		summarizeBy: sum
+		sourceColumn: EndOfDayRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Business date and time when the currency rate record was last updated. Use this field to track data freshness, audit changes, and analyze update timing. Do not summarize this column; it should be used as a detail or filter field, not aggregated.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 2e329434-6f19-41f0-b448-df7325dbbb18
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CurrencyRate = entity
+		mode: directLake
+		source
+			entityName: CurrencyRate
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

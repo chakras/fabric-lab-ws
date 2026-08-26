@@ -1,0 +1,1373 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "ff8816c8-d88f-955e-4d32-0dca003ceb62",
+  "workspaceId": "00000000-0000-0000-0000-000000000000",
+  "dataSourceInstructions": null,
+  "displayName": "demo_sales_sm",
+  "type": "semantic_model",
+  "userDescription": null,
+  "metadata": {
+    "csdl_relationships": "[{\"FromTable\":\"ProductReview\",\"FromColumn\":\"ProductID\",\"ToTable\":\"Product\",\"ToColumn\":\"ProductID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"Person\",\"FromColumn\":\"BusinessEntityID\",\"ToTable\":\"SalesPerson\",\"ToColumn\":\"BusinessEntityID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"Unknown\"},{\"FromTable\":\"SalesOrderDetail\",\"FromColumn\":\"SalesOrderID\",\"ToTable\":\"SalesOrderHeader\",\"ToColumn\":\"SalesOrderID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"SalesOrderHeader\",\"FromColumn\":\"CustomerID\",\"ToTable\":\"Customer\",\"ToColumn\":\"CustomerID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"SalesOrderHeader\",\"FromColumn\":\"TerritoryID\",\"ToTable\":\"SalesTerritory\",\"ToColumn\":\"TerritoryID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"SalesOrderHeader\",\"FromColumn\":\"SalesPersonID\",\"ToTable\":\"Store\",\"ToColumn\":\"SalesPersonID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"Store\",\"FromColumn\":\"BusinessEntityID\",\"ToTable\":\"SalesPerson\",\"ToColumn\":\"BusinessEntityID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"Unknown\"},{\"FromTable\":\"SalesPerson\",\"FromColumn\":\"BusinessEntityID\",\"ToTable\":\"Store\",\"ToColumn\":\"BusinessEntityID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"Unknown\"},{\"FromTable\":\"SalesPerson\",\"FromColumn\":\"BusinessEntityID\",\"ToTable\":\"Person\",\"ToColumn\":\"BusinessEntityID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"Unknown\"},{\"FromTable\":\"SalesTerritory\",\"FromColumn\":\"TerritoryID\",\"ToTable\":\"StateProvince\",\"ToColumn\":\"TerritoryID\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"CurrencyRate\",\"FromColumn\":\"FromCurrencyCode\",\"ToTable\":\"Currency\",\"ToColumn\":\"CurrencyCode\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"CurrencyRate\",\"FromColumn\":\"ToCurrencyCode\",\"ToTable\":\"Currency\",\"ToColumn\":\"CurrencyCode\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"}]"
+  },
+  "elements": [
+    {
+      "id": "a1fcc869-b483-4085-886b-734816dd48c6",
+      "is_selected": true,
+      "display_name": "Currency",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "77d9a02a-a558-4a2b-a374-61888cc5f1ce",
+          "is_selected": true,
+          "display_name": "CurrencyCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "933804b1-8538-469f-8078-db866c799b80",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "913d665a-f747-4e87-ba70-a5fced398fb9",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "34c9593d-367d-437c-b0a2-a02d5584502c",
+      "is_selected": true,
+      "display_name": "CurrencyRate",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "603e08fd-4648-4683-a8f3-4a958c390eed",
+          "is_selected": true,
+          "display_name": "CurrencyRateID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "570209b1-6ad0-432f-bdf9-fb6b6e3052f2",
+          "is_selected": true,
+          "display_name": "CurrencyRateDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "dd44efb0-ad84-4b1c-b3cb-0c9537165643",
+          "is_selected": true,
+          "display_name": "FromCurrencyCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7ea788c7-0575-44f0-8769-72429a3efa61",
+          "is_selected": true,
+          "display_name": "ToCurrencyCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "2cdae627-25e1-4a10-8684-a9dc9d1b8d0e",
+          "is_selected": true,
+          "display_name": "AverageRate",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9efa913b-654c-4873-a94a-8698c8432e93",
+          "is_selected": true,
+          "display_name": "EndOfDayRate",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "2e329434-6f19-41f0-b448-df7325dbbb18",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "898c331c-7dc5-426c-9704-ae8561cb70c1",
+      "is_selected": true,
+      "display_name": "Customer",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "6d2b999a-c97f-4bf2-a61e-39bfda73169c",
+          "is_selected": true,
+          "display_name": "CustomerID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c95ce92a-e1b2-40d2-9d6a-282a43bd1ef7",
+          "is_selected": true,
+          "display_name": "PersonID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "0cabe0a9-41e9-447f-9e7d-f74e18706fcb",
+          "is_selected": true,
+          "display_name": "StoreID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "2f0fafef-b478-43d0-aee8-207865c83aa3",
+          "is_selected": true,
+          "display_name": "TerritoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ea09f0f0-96b3-4908-814b-18edaeca3d5b",
+          "is_selected": true,
+          "display_name": "AccountNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "016a99ff-b9ad-4a20-92db-e429349f7b7b",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "6d9d94ac-dfb9-4740-bcad-5cc314411cd0",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "d61820db-5915-46f8-9c20-a46215eac70c",
+      "is_selected": true,
+      "display_name": "Location",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "b85afa80-3f3e-46ff-92e0-eea7cf94d6e2",
+          "is_selected": true,
+          "display_name": "LocationID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "0ffb934c-9a01-42eb-a16d-efc00c7d523e",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b3839d6c-0e4d-45fc-b91a-9a244470746d",
+          "is_selected": true,
+          "display_name": "CostRate",
+          "type": "semantic_model.column",
+          "data_type": "Decimal",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fb7433a3-d07f-4cd5-a2f6-f2dad82f395a",
+          "is_selected": true,
+          "display_name": "Availability",
+          "type": "semantic_model.column",
+          "data_type": "Decimal",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d90c3d65-988d-45ea-a5b7-bbcafa402504",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "31343278-9423-406a-b021-69eea6ed7418",
+      "is_selected": true,
+      "display_name": "Person",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "4404d389-4c53-4153-8b02-353ab8221503",
+          "is_selected": true,
+          "display_name": "BusinessEntityID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "e91faf90-d81a-473b-8700-22221eb373f3",
+          "is_selected": true,
+          "display_name": "PersonType",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "14402c05-e5c6-44fa-9dc3-fe54be8db0c6",
+          "is_selected": true,
+          "display_name": "NameStyle",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b597d0f8-48f4-4034-a7bc-fee437bbe394",
+          "is_selected": true,
+          "display_name": "Title",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7451fbcd-fcd6-41b2-9f2e-88b539cb46b4",
+          "is_selected": true,
+          "display_name": "FirstName",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7d6a3af0-0527-4b8c-a71f-93f1584cfb20",
+          "is_selected": true,
+          "display_name": "MiddleName",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "730f1794-9e6f-450f-b95b-4b8e110ebdd3",
+          "is_selected": true,
+          "display_name": "LastName",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ded00e06-41f3-4fec-873b-c8a84cec3729",
+          "is_selected": true,
+          "display_name": "Suffix",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "10b4f263-dc34-4352-aa58-154e978ffb4e",
+          "is_selected": true,
+          "display_name": "EmailPromotion",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "615a4bb7-7336-4cd9-95d5-dfc6f4b666e3",
+          "is_selected": true,
+          "display_name": "AdditionalContactInfo",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1cba2549-2dd9-4f12-955d-6f3462014810",
+          "is_selected": true,
+          "display_name": "Demographics",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9b3a06fa-fe38-4b4e-b7a7-417a12286567",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "deac50b0-3288-41ab-bd59-037b05c28ff5",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "7c8d613c-f552-4d57-94e8-5b5d71f2abbe",
+      "is_selected": true,
+      "display_name": "Product",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "befc6298-5ac4-4250-b3ae-0b7d7b402cd7",
+          "is_selected": true,
+          "display_name": "ProductID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5e0ca3e6-c4ba-412c-951b-f2e49da881a1",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d7e419cc-617a-4f0b-9fff-ae82b5d65beb",
+          "is_selected": true,
+          "display_name": "ProductNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "742b5d1c-6f85-4c7b-a004-9b1019b6dae0",
+          "is_selected": true,
+          "display_name": "MakeFlag",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5899f839-651f-4b5c-9964-77aa332277fc",
+          "is_selected": true,
+          "display_name": "FinishedGoodsFlag",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d3d8a480-e813-4f13-9ee1-ffc04caca580",
+          "is_selected": true,
+          "display_name": "Color",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "4551ad57-b2a3-470a-a42f-11d1dd935e30",
+          "is_selected": true,
+          "display_name": "SafetyStockLevel",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f40e6c7d-2e56-429a-beaf-3e168d6da362",
+          "is_selected": true,
+          "display_name": "ReorderPoint",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f953c547-9852-458e-bd5f-f1fd3c2f49b7",
+          "is_selected": true,
+          "display_name": "StandardCost",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5a953d14-2a65-4134-8d61-a23c0aab8c2c",
+          "is_selected": true,
+          "display_name": "ListPrice",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b9dcef3a-bdba-403e-82d9-ed58584a9742",
+          "is_selected": true,
+          "display_name": "Size",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "150de84c-7ec7-44c0-a202-2ff95c5258e8",
+          "is_selected": true,
+          "display_name": "SizeUnitMeasureCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "daba231a-3a14-4f11-b5c3-ae291136bc7b",
+          "is_selected": true,
+          "display_name": "WeightUnitMeasureCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "59d13f56-4c5b-47ae-a767-3c77e2a18bd6",
+          "is_selected": true,
+          "display_name": "Weight",
+          "type": "semantic_model.column",
+          "data_type": "Decimal",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "97edde11-ea12-4cfb-8fd0-8a1e7aa891ed",
+          "is_selected": true,
+          "display_name": "DaysToManufacture",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "a0df03a2-e1ed-493d-92bf-8b735af1974d",
+          "is_selected": true,
+          "display_name": "ProductLine",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "82fa9ad1-f626-4bfd-be62-5806a1698821",
+          "is_selected": true,
+          "display_name": "Class",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c9e0c8bf-4eb5-44b4-97ea-337749ded2e3",
+          "is_selected": true,
+          "display_name": "Style",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "e88444f2-a5e7-4aef-8457-ffd391d9f61d",
+          "is_selected": true,
+          "display_name": "ProductSubcategoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "4e782887-4b0c-4432-97da-06553a606067",
+          "is_selected": true,
+          "display_name": "ProductModelID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "8f255431-3c37-4c6d-98e2-b638cede656f",
+          "is_selected": true,
+          "display_name": "SellStartDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "989fa3d7-e1a1-43a9-9a5f-e4410a512431",
+          "is_selected": true,
+          "display_name": "SellEndDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "eaf21d4e-2631-41d7-96e0-57b4c5439318",
+          "is_selected": true,
+          "display_name": "DiscontinuedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "49302506-3163-43b0-a0df-55c1fccb1ba1",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d5289541-db29-468d-9e90-fdeb5814bd3a",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "8ff47602-9393-4a17-9a96-82f3a4d69bde",
+      "is_selected": true,
+      "display_name": "ProductReview",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "1d0dcad3-5890-4c89-a7a4-be1a48389a8a",
+          "is_selected": true,
+          "display_name": "ProductReviewID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "05379c36-5b03-4c68-bc4a-bad4c09dc91d",
+          "is_selected": true,
+          "display_name": "ProductID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f4de661b-733c-42f0-a989-76419a41a72c",
+          "is_selected": true,
+          "display_name": "ReviewerName",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "a1de53fa-1ded-4f9c-96d2-6672fce01110",
+          "is_selected": true,
+          "display_name": "ReviewDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "07b2a1da-4a14-45f5-a380-65bee1a6194f",
+          "is_selected": true,
+          "display_name": "EmailAddress",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f6218ae4-d456-4017-a161-a9c254b48a52",
+          "is_selected": true,
+          "display_name": "Rating",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "35dbbb82-1fd4-4abc-a4ec-2162a1af16c7",
+          "is_selected": true,
+          "display_name": "Comments",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1c3857d9-94e3-4a3f-b32e-91f4f9d43a33",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "7dfbfbb8-21b4-41a5-8571-68739e362802",
+      "is_selected": true,
+      "display_name": "SalesOrderDetail",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "73978d06-b27d-43d2-8641-978d4cdabebc",
+          "is_selected": true,
+          "display_name": "SalesOrderID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c52ce528-6d97-43b0-89d5-efbca277b3ca",
+          "is_selected": true,
+          "display_name": "SalesOrderDetailID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "038ad006-8a8b-4b1b-bc15-cd072ad014da",
+          "is_selected": true,
+          "display_name": "CarrierTrackingNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c7014089-50a4-44cb-ac04-04805dda83a4",
+          "is_selected": true,
+          "display_name": "OrderQty",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "755a6a56-67cf-4b35-82ff-3f5e2dca7552",
+          "is_selected": true,
+          "display_name": "ProductID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "302af7f5-0f28-4c79-ac44-3abee775bae9",
+          "is_selected": true,
+          "display_name": "SpecialOfferID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f781f8af-b863-48e4-82fd-8a102cc72bbf",
+          "is_selected": true,
+          "display_name": "UnitPrice",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9918f864-430b-4750-88ec-fc9887c99dd9",
+          "is_selected": true,
+          "display_name": "UnitPriceDiscount",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "01db32c6-821e-481c-ab5b-fe7fef5ab367",
+          "is_selected": true,
+          "display_name": "LineTotal",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "91b2ab5a-717a-40c5-a0be-4888c9697a21",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ec21f58a-e30f-4101-903e-f7e94fe7e284",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "a639abca-eca0-4b70-b3cd-b78c01ab138e",
+      "is_selected": true,
+      "display_name": "SalesOrderHeader",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "63fb9155-e50f-4c09-9022-256d75f42d59",
+          "is_selected": true,
+          "display_name": "SalesOrderID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "dd5317ad-bacf-4fd8-88dc-206713635844",
+          "is_selected": true,
+          "display_name": "RevisionNumber",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "00b73755-f9d6-4be0-8de7-0ce707df4f5a",
+          "is_selected": true,
+          "display_name": "OrderDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "74e17fca-951e-4579-b957-eca59b56a98e",
+          "is_selected": true,
+          "display_name": "DueDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7d89b810-78d7-4279-82f1-beadf4be85bb",
+          "is_selected": true,
+          "display_name": "ShipDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "039d51e1-946d-44b7-93e1-0ce14ebf3d64",
+          "is_selected": true,
+          "display_name": "Status",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "92e68de4-11e2-4988-bcf0-cc670dc2f290",
+          "is_selected": true,
+          "display_name": "OnlineOrderFlag",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "00797d5b-7cc3-4ae6-a29e-c7c4db7f19d6",
+          "is_selected": true,
+          "display_name": "SalesOrderNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "114f6b0c-187d-4900-99fb-996a7e302b56",
+          "is_selected": true,
+          "display_name": "PurchaseOrderNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ae407751-43a6-42af-95cd-f0cad159057e",
+          "is_selected": true,
+          "display_name": "AccountNumber",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fe9fae84-57d0-465d-afaf-ed561faa80d2",
+          "is_selected": true,
+          "display_name": "CustomerID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "cbb54c8c-d7e0-4872-848a-2ec681e8b73b",
+          "is_selected": true,
+          "display_name": "SalesPersonID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "dca28bb6-4679-4c16-b9a7-268d7f9df3ab",
+          "is_selected": true,
+          "display_name": "TerritoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "dc50d51e-b07f-442d-9589-2c1bb615a00e",
+          "is_selected": true,
+          "display_name": "BillToAddressID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "e5cf7680-ddba-49ae-b772-0a5f21fa8b59",
+          "is_selected": true,
+          "display_name": "ShipToAddressID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5e112dfe-b214-4767-8fce-a3570aa674fe",
+          "is_selected": true,
+          "display_name": "ShipMethodID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "8b5ae2b4-4268-4712-8b36-9e466bbce370",
+          "is_selected": true,
+          "display_name": "CreditCardID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d91c9057-ede8-41c8-bf98-1d286d073cbd",
+          "is_selected": true,
+          "display_name": "CreditCardApprovalCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "41935970-bd8c-4ac2-a95c-a55e468ae205",
+          "is_selected": true,
+          "display_name": "CurrencyRateID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ead9ff9a-a8fa-485d-8b13-175c3e8d42c4",
+          "is_selected": true,
+          "display_name": "SubTotal",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5ad63022-2f76-4114-a3f3-122dae5e5591",
+          "is_selected": true,
+          "display_name": "TaxAmt",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "34eddd68-5941-439b-ad2a-58e894598670",
+          "is_selected": true,
+          "display_name": "Freight",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1112d0b9-7a1d-48fc-8316-82d609520c01",
+          "is_selected": true,
+          "display_name": "TotalDue",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c70ccd51-b2c8-42bf-8d98-4c3c60e7be7c",
+          "is_selected": true,
+          "display_name": "Comment",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1c291c1c-61ee-4cd8-a4d3-b10b258f7f8d",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ec393ae7-e0c2-44df-84f4-a7ae53a420be",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "c07ca908-deec-472e-b13b-27bd42ab4cea",
+      "is_selected": true,
+      "display_name": "SalesPerson",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "8eb80635-97a3-4f23-acad-2f659cfd5f3e",
+          "is_selected": true,
+          "display_name": "BusinessEntityID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "6e2ee8d5-9691-4c9d-8986-a447680db2c4",
+          "is_selected": true,
+          "display_name": "TerritoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f653e28a-32ac-4581-a184-b4dd57eecd73",
+          "is_selected": true,
+          "display_name": "SalesQuota",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9186827d-4d4e-4490-a20a-76d0712f534a",
+          "is_selected": true,
+          "display_name": "Bonus",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5e3202d4-4935-49bf-af06-a3f0cc0fa382",
+          "is_selected": true,
+          "display_name": "CommissionPct",
+          "type": "semantic_model.column",
+          "data_type": "Decimal",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ee3e4119-c55d-446f-90f1-575767fbd57b",
+          "is_selected": true,
+          "display_name": "SalesYTD",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "46a32ff1-9c40-4c11-b19c-96f304f3aa25",
+          "is_selected": true,
+          "display_name": "SalesLastYear",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "11bfdc47-bfd2-41a7-bdce-9397acebcf09",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "cd3804ea-050e-4c2c-92c8-e90f55a714fa",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "d948b1e7-cc5c-4e00-8ba5-c4a590ff722d",
+      "is_selected": true,
+      "display_name": "SalesTerritory",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "e3c72f06-5883-48cd-8e5a-de6ac5cf4d57",
+          "is_selected": true,
+          "display_name": "TerritoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "a4eea2ef-1f47-4a31-be97-662d36baae6b",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7cc3d70a-d153-499c-85ea-07f3ee124d10",
+          "is_selected": true,
+          "display_name": "CountryRegionCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "92b4bb3b-4bc6-43f3-85ca-34558eeffc1f",
+          "is_selected": true,
+          "display_name": "Group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1148e455-e1e3-43cc-abb7-e01ad4de4a3e",
+          "is_selected": true,
+          "display_name": "SalesYTD",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "91460ac9-b673-43f7-ac8d-fe49898648cf",
+          "is_selected": true,
+          "display_name": "SalesLastYear",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ea31b223-84f2-4ec0-9ed5-44f3dbf14606",
+          "is_selected": true,
+          "display_name": "CostYTD",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "64a8ddf2-61e7-4c2c-b57a-e8cd027ccc91",
+          "is_selected": true,
+          "display_name": "CostLastYear",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5217974f-9dc7-40de-836a-598650caaf0a",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "69911ae0-c808-4b2e-a8f6-42cbd196ee11",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "6b2b6fa9-f357-4296-a372-e13a54cef0cb",
+      "is_selected": true,
+      "display_name": "StateProvince",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "f71a5772-1432-407b-8ca7-36eabd56e160",
+          "is_selected": true,
+          "display_name": "StateProvinceID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "73a418ac-cc14-4db5-990c-4c929cc202a3",
+          "is_selected": true,
+          "display_name": "StateProvinceCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "519f22ea-47af-44cf-b48a-38832f178472",
+          "is_selected": true,
+          "display_name": "CountryRegionCode",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "df74e6ea-82dc-420a-96ea-b1e8317a38fd",
+          "is_selected": true,
+          "display_name": "IsOnlyStateProvinceFlag",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "82e3d7dd-1edc-4656-a006-d5f8e96e7893",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "bfc0b3dd-0c71-47d6-9c1d-1314e1924ca8",
+          "is_selected": true,
+          "display_name": "TerritoryID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7931c76b-1e86-4377-99d7-15a069e29aa9",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "1d9ba2fa-065c-4ddf-9e6a-48082d1d16a6",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "d1fbb1cf-ca4c-4025-8f2b-8b5bf5de153f",
+      "is_selected": true,
+      "display_name": "Store",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "4d3e14bf-fd19-443f-bb15-fd3e9a19b803",
+          "is_selected": true,
+          "display_name": "BusinessEntityID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ea7c130a-54c2-4e0e-8365-b4a4ee6ef06e",
+          "is_selected": true,
+          "display_name": "Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f30f2b02-d66e-423b-b742-bfb960cdcf1e",
+          "is_selected": true,
+          "display_name": "SalesPersonID",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "103b6179-0ecd-4be1-bfef-c16442c1668e",
+          "is_selected": true,
+          "display_name": "Demographics",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5d24b4ad-5af3-4353-acf3-4fc7515518a8",
+          "is_selected": true,
+          "display_name": "rowguid",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "482ff779-5c17-48d5-a895-b1870f1e43fa",
+          "is_selected": true,
+          "display_name": "ModifiedDate",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

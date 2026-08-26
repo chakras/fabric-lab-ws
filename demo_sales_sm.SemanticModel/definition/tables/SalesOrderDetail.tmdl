@@ -1,0 +1,151 @@
+/// **Business purpose:** Stores each individual sales order line item, capturing the products sold, quantities, pricing, discounts, and fulfillment reference details for analysis of revenue and order composition.  
+/// 
+/// **Expected grain:** One record per sales order detail line. Keys: SalesOrderID and SalesOrderDetailID identify the transaction line; use as identifiers, not for aggregation. Numeric measures like OrderQty, UnitPrice, UnitPriceDiscount, and LineTotal can be summed or averaged as appropriate.  
+/// 
+/// **Reporting usage:** Used to report sales by product, discount impact, order volume, and detailed transaction-level performance.
+table SalesOrderDetail
+	lineageTag: 7dfbfbb8-21b4-41a5-8571-68739e362802
+	sourceLineageTag: [dbo].[SalesOrderDetail]
+
+	/// Unique identifier for each sales order associated with the order detail record. Use this field to link line items to their parent order and for filtering or grouping by order. Do not sum or average this key; treat it as a non-aggregated identifier.
+	column SalesOrderID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 73978d06-b27d-43d2-8641-978d4cdabebc
+		sourceLineageTag: SalesOrderID
+		summarizeBy: none
+		sourceColumn: SalesOrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for each sales order detail line. Use this key to link and trace individual order line records in the model. Do not summarize or aggregate this column; it should be treated as a row-level identifier only.
+	column SalesOrderDetailID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c52ce528-6d97-43b0-89d5-efbca277b3ca
+		sourceLineageTag: SalesOrderDetailID
+		summarizeBy: count
+		sourceColumn: SalesOrderDetailID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// CarrierTrackingNumber stores the shipping carrier’s tracking code for a sales order line. Use it to identify and trace a shipment’s delivery status. This is a text identifier and should not be summarized or aggregated.
+	column CarrierTrackingNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 038ad006-8a8b-4b1b-bc15-cd072ad014da
+		sourceLineageTag: CarrierTrackingNumber
+		summarizeBy: none
+		sourceColumn: CarrierTrackingNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantity of units ordered for each sales order line. Use this field to analyze order volume, demand trends, and product mix. Summarize by **Sum** for total units ordered; avoid **Average** unless comparing typical line sizes.
+	column OrderQty
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: c7014089-50a4-44cb-ac04-04805dda83a4
+		sourceLineageTag: OrderQty
+		summarizeBy: sum
+		sourceColumn: OrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for the product on each sales order line. Use to relate order details to product information and to analyze sales by product. Do not sum or average this field; treat it as a key and use distinct counts only when needed.
+	column ProductID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 755a6a56-67cf-4b35-82ff-3f5e2dca7552
+		sourceLineageTag: ProductID
+		summarizeBy: count
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// SpecialOfferID identifies the special promotional offer applied to a sales order line. Use it to group or filter sales by promotion and discount program. This is an identifier key, so do not sum or average it; treat it as a categorical field for analysis and relationships.
+	column SpecialOfferID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 302af7f5-0f28-4c79-ac44-3abee775bae9
+		sourceLineageTag: SpecialOfferID
+		summarizeBy: count
+		sourceColumn: SpecialOfferID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unit price charged for each sales order line item, representing the selling price per unit before quantity is applied. Use this field for revenue analysis, pricing comparisons, and margin calculations. Summarize as Average or Do not summarize, not Sum.
+	column UnitPrice
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: f781f8af-b863-48e4-82fd-8a102cc72bbf
+		sourceLineageTag: UnitPrice
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Discount amount applied to each sales order line before tax and freight. Use to analyze pricing discounts, promotion impact, and margin reduction. Summarize as Average or Sum depending on analysis; do not use as an identifier.
+	column UnitPriceDiscount
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 9918f864-430b-4750-88ec-fc9887c99dd9
+		sourceLineageTag: UnitPriceDiscount
+		summarizeBy: sum
+		sourceColumn: UnitPriceDiscount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// LineTotal is the total sales amount for each order line after quantity and pricing are applied. Use this field to analyze revenue at the line-item level. Summarize with Sum for reporting total sales; do not average or count it.
+	column LineTotal
+		dataType: double
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 01db32c6-821e-481c-ab5b-fe7fef5ab367
+		sourceLineageTag: LineTotal
+		summarizeBy: sum
+		sourceColumn: LineTotal
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Unique row-level identifier for each sales order detail record. Use this field to distinguish individual transaction lines and support record tracing. Do not summarize or aggregate this column; it should be treated as a non-numeric key and used only for identification and filtering.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 91b2ab5a-717a-40c5-a0be-4888c9697a21
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Record timestamp showing when the sales order detail line was last modified. Use to analyze data freshness, operational changes, and update timing. Do not summarize or aggregate this date/time field; use it for filtering, grouping by period, or audit analysis.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: ec21f58a-e30f-4101-903e-f7e94fe7e284
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesOrderDetail = entity
+		mode: directLake
+		source
+			entityName: SalesOrderDetail
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

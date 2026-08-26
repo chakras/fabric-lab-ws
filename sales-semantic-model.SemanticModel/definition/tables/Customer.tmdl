@@ -1,0 +1,78 @@
+table Customer
+	lineageTag: 894d8e13-e9d3-4cef-b1e4-6977fa1cd73b
+	sourceLineageTag: [dbo].[Customer]
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7862db91-d900-4e84-a4a7-8d390ea3f8ab
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PersonID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0607d8da-7f9f-417b-943f-82c63b1cd2a5
+		sourceLineageTag: PersonID
+		summarizeBy: none
+		sourceColumn: PersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreID
+		dataType: int64
+		formatString: 0
+		lineageTag: de58508f-e887-4ecd-8643-515c0a9ba108
+		sourceLineageTag: StoreID
+		summarizeBy: none
+		sourceColumn: StoreID
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryID
+		dataType: int64
+		formatString: 0
+		lineageTag: 38c2f31b-7cab-48c8-8f20-c95c0b549a8f
+		sourceLineageTag: TerritoryID
+		summarizeBy: none
+		sourceColumn: TerritoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountNumber
+		dataType: string
+		lineageTag: 39dd8c43-9710-481c-af54-316a1441233e
+		sourceLineageTag: AccountNumber
+		summarizeBy: none
+		sourceColumn: AccountNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column rowguid
+		dataType: string
+		lineageTag: 6121afb8-976d-4ce3-b415-5c3d4ee67ef7
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1999db39-f6c9-45ed-bf77-c5ec571faa39
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer = entity
+		mode: directLake
+		source
+			entityName: Customer
+			expressionSource: 'DirectLake - AdventureWorksLH'
+

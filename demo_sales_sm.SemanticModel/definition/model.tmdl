@@ -1,0 +1,48 @@
+/// **Overall business purpose:**  
+/// `demo_sales_sm` is a sales and customer analytics model for tracking orders, products, pricing, customers, territories, and sales performance across the business. It supports reporting on revenue, margin-related measures, customer behavior, and regional sales operations.
+/// 
+/// **Key subject areas:**  
+/// Sales orders, order details, products, customers, stores, salespeople, territories, currency exchange rates, geographic locations, and product reviews.
+/// 
+/// **Main analytical/reporting scenarios:**  
+/// Revenue and order trend analysis, product performance, customer and store analysis, salesperson and territory performance, currency-adjusted reporting, geographic sales mapping, and product review insights. Numeric fields should be aggregated as appropriate; identifier fields should be used only for linking and filtering, not summed.
+/// 
+/// **Typical consumers (audience):**  
+/// Sales leaders, finance teams, regional managers, product managers, and business analysts.
+/// 
+/// **High-level data freshness or update expectations:**  
+/// Data is typically refreshed on a scheduled basis, often daily or near-daily, to support operational and management reporting.
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation PBI_ProTooling = ["SLL", "CopilotTooling", "WebModelingEdit"]
+
+ref table StateProvince
+ref table ProductReview
+ref table Product
+ref table Location
+ref table Person
+ref table Currency
+ref table SalesOrderDetail
+ref table SalesOrderHeader
+ref table Store
+ref table SalesPerson
+ref table Customer
+ref table SalesTerritory
+ref table CurrencyRate
+
+ref role CanadaSalesRole
+ref role FranceSalesRole
+
+ref cultureInfo en-US
+

@@ -1,0 +1,87 @@
+/// **Business purpose:** Stores master data for retail locations, including store identity, assigned salesperson, demographic details, and last update date.
+/// 
+/// **Expected grain:** One row per store. BusinessEntityID is the unique store identifier.
+/// 
+/// **Reporting usage:** Use for store-level analysis, sales coverage, and demographic segmentation. Treat BusinessEntityID as a key, do not aggregate. Other columns are descriptive attributes; ModifiedDate can support freshness reporting.
+table Store
+	lineageTag: d1fbb1cf-ca4c-4025-8f2b-8b5bf5de153f
+	sourceLineageTag: [dbo].[Store]
+
+	/// Unique identifier for each store business entity. Use this key to relate store records to other tables and to filter or join data. Do not summarize or aggregate this column; it should be treated as an identifier, not a measure.
+	column BusinessEntityID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4d3e14bf-fd19-443f-bb15-fd3e9a19b803
+		sourceLineageTag: BusinessEntityID
+		summarizeBy: none
+		sourceColumn: BusinessEntityID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Store name identifying the retail location or outlet. Use this field to label and filter store-level analysis, reporting, and comparisons across locations. Do not summarize or aggregate this text column; it should be treated as a descriptive attribute only.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ea7c130a-54c2-4e0e-8365-b4a4ee6ef06e
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identifier for the salesperson assigned to the store. Use this key to relate the store to employee or sales representative records. Do not summarize or aggregate this field; it should be treated as a unique reference value for filtering and relationship mapping.
+	column SalesPersonID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f30f2b02-d66e-423b-b742-bfb960cdcf1e
+		sourceLineageTag: SalesPersonID
+		summarizeBy: none
+		sourceColumn: SalesPersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Demographic attributes for the store’s customer or trade area profile, such as age, income, or household characteristics. Use this field to segment store performance and support market analysis. Text values should not be summarized; if parsed into numeric attributes, aggregate those measures appropriately.
+	column Demographics
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 103b6179-0ecd-4be1-bfef-c16442c1668e
+		sourceLineageTag: Demographics
+		summarizeBy: none
+		sourceColumn: Demographics
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique row-level identifier for each Store record. Use this field to distinguish individual stores or link to related records. Do not summarize or aggregate this column; it is an identifier only.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5d24b4ad-5af3-4353-acf3-4fc7515518a8
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the store record was last updated in the system. Use this field to track data freshness, audit changes, and identify recent modifications. Do not summarize; treat as a date/time attribute for filtering, sorting, and reporting only.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 482ff779-5c17-48d5-a895-b1870f1e43fa
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Store = entity
+		mode: directLake
+		source
+			entityName: Store
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

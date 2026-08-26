@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "@concat('update ETLAudit set Status=''Completed'',EndTime=SYSDATETIME() where PipelineName=''',pipeline().parameters.paramPipelineName,'''')",
+                "type": "Expression"
+              },
+              "type": "NonQuery"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "demo-sql-db",
+          "properties": {
+            "type": "FabricSqlDatabase",
+            "typeProperties": {
+              "artifactId": "2727e3bd-b4b7-a163-43dd-69a9b9f2c803",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "2d690101-beaa-4719-8cec-0ee7fbf541c9"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Script1",
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "paramPipelineName": {
+        "type": "string"
+      }
+    }
+  }
+}
