@@ -1,0 +1,21 @@
+relationship fa15a962-636c-cb21-4826-b882957fc6e8
+	fromColumn: CurrencyRate.FromCurrencyCode
+	toColumn: Currency.CurrencyCode
+
+relationship 4e4d18e4-0553-8d6c-9b00-0ce8f93ad6a3
+	isActive: false
+	fromColumn: CurrencyRate.ToCurrencyCode
+	toColumn: Currency.CurrencyCode
+
+relationship a40e28ee-ef99-e242-3d2a-9afb55ab02c6
+	fromColumn: SalesOrderHeader.CustomerID
+	toColumn: Customer.CustomerID
+
+relationship b4bf6313-1944-265c-d6f4-de4a9bdaa84b
+	fromColumn: SalesOrderHeader.CurrencyRateID
+	toColumn: CurrencyRate.CurrencyRateID
+
+relationship aabde5d5-3847-f3c5-68ca-85153633ceac
+	fromColumn: SalesOrderDetail.SalesOrderID
+	toColumn: SalesOrderHeader.SalesOrderID
+

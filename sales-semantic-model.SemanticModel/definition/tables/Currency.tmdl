@@ -1,0 +1,38 @@
+table Currency
+	lineageTag: bc272cb2-b1e7-46c1-bfc6-2ca15a7fac83
+	sourceLineageTag: [dbo].[Currency]
+
+	column CurrencyCode
+		dataType: string
+		lineageTag: e203ead2-3a6d-4fed-b484-7976b92d2456
+		sourceLineageTag: CurrencyCode
+		summarizeBy: none
+		sourceColumn: CurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: fdf039f5-6c26-4fcb-a708-7cbfd674c253
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1e797982-7154-4e6c-992d-382bf2143502
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Currency = entity
+		mode: directLake
+		source
+			entityName: Currency
+			expressionSource: 'DirectLake - AdventureWorksLH'
+

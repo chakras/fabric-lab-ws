@@ -1,0 +1,67 @@
+table Store
+	lineageTag: 238edb5b-8b1a-48f2-8c88-5ac62a90d5ef
+	sourceLineageTag: [dbo].[Store]
+
+	column BusinessEntityID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2298302d-e725-4e3e-b483-689f71327d25
+		sourceLineageTag: BusinessEntityID
+		summarizeBy: count
+		sourceColumn: BusinessEntityID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: ce3166f9-26dc-41d4-8050-1b4564f1bc86
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesPersonID
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d6b0916-09f5-4169-98d2-bcc05f1a6eee
+		sourceLineageTag: SalesPersonID
+		summarizeBy: count
+		sourceColumn: SalesPersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demographics
+		dataType: string
+		lineageTag: be6d45bb-1dc9-4b46-b828-b34d7562d9d3
+		sourceLineageTag: Demographics
+		summarizeBy: none
+		sourceColumn: Demographics
+
+		annotation SummarizationSetBy = Automatic
+
+	column rowguid
+		dataType: string
+		lineageTag: c7a22f78-103e-422f-a548-68b6e353eca9
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 29439d84-ad7f-4d04-869f-6415af9ba993
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Store = entity
+		mode: directLake
+		source
+			entityName: Store
+			expressionSource: 'DirectLake - AdventureWorksLH'
+

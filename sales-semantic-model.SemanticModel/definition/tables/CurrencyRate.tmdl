@@ -1,0 +1,80 @@
+table CurrencyRate
+	lineageTag: 627ce948-b0b4-457d-818b-e1f524afb45a
+	sourceLineageTag: [dbo].[CurrencyRate]
+
+	column CurrencyRateID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ffc4e9c-431f-4e15-af13-3acbe86eec87
+		sourceLineageTag: CurrencyRateID
+		summarizeBy: none
+		sourceColumn: CurrencyRateID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyRateDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 335288bd-ca93-4641-87c3-1027613a1213
+		sourceLineageTag: CurrencyRateDate
+		summarizeBy: none
+		sourceColumn: CurrencyRateDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column FromCurrencyCode
+		dataType: string
+		lineageTag: c203e17e-ea2a-4dbc-9886-00443935e212
+		sourceLineageTag: FromCurrencyCode
+		summarizeBy: none
+		sourceColumn: FromCurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ToCurrencyCode
+		dataType: string
+		lineageTag: f0b77995-75c0-4a7a-a255-adb0e6a1ee3c
+		sourceLineageTag: ToCurrencyCode
+		summarizeBy: none
+		sourceColumn: ToCurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column AverageRate
+		dataType: double
+		lineageTag: f7bbb7f0-27e3-4a08-a413-d1e8bac1471d
+		sourceLineageTag: AverageRate
+		summarizeBy: sum
+		sourceColumn: AverageRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EndOfDayRate
+		dataType: double
+		lineageTag: 100ef4d1-d27b-4d4e-b47f-2e05f1a9e640
+		sourceLineageTag: EndOfDayRate
+		summarizeBy: sum
+		sourceColumn: EndOfDayRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 57cbfc61-1516-41e6-8de9-9ce37924adca
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CurrencyRate = entity
+		mode: directLake
+		source
+			entityName: CurrencyRate
+			expressionSource: 'DirectLake - AdventureWorksLH'
+
