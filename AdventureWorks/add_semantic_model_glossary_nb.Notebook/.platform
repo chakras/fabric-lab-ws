@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "add_semantic_model_glossary_nb"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e706b6d0-a592-892b-4dc4-ce9b13c5a9a0"
+  }
+}
