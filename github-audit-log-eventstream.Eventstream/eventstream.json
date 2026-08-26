@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "id": "7d95f191-5e81-4028-bfde-d55f1c811a25",
+      "name": "CustomEndpoint-Source",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [],
+  "streams": [
+    {
+      "id": "b79dd2ef-de5e-42e5-a7fd-dbfdd688ac2e",
+      "name": "github-audit-log-eventstream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "CustomEndpoint-Source"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.0"
+}

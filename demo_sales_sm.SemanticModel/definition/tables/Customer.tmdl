@@ -1,0 +1,100 @@
+/// **Business purpose:** Stores one record per customer, including person or store linkage, sales territory assignment, account reference, and audit details. Supports customer analysis across sales, service, and territory reporting.
+/// 
+/// **Expected grain:** One row per customer.
+/// 
+/// **Reporting usage:** Use key fields as identifiers only; do not aggregate. Numeric identifiers should be treated as keys, not measures. Report customer counts, customer segmentation, and territory performance using related sales data.
+table Customer
+	lineageTag: 898c331c-7dc5-426c-9704-ae8561cb70c1
+	sourceLineageTag: [dbo].[Customer]
+
+	/// Unique identifier for each customer record in the Customer table. Use this key to relate customer data to orders, accounts, and other business entities. Do not summarize or aggregate this column; it should be treated as an identifier only.
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6d2b999a-c97f-4bf2-a61e-39bfda73169c
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for a person in the Customer table. Use this field to link customer records across related business tables. Numeric key values should not be summed or averaged; use only for identification, filtering, and joins.
+	column PersonID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c95ce92a-e1b2-40d2-9d6a-282a43bd1ef7
+		sourceLineageTag: PersonID
+		summarizeBy: none
+		sourceColumn: PersonID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for the store associated with the customer. Use this field to relate customer records to store-level data or grouping by store. Do not sum or average this column; treat it as a key and use distinct values or counts when analyzing.
+	column StoreID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0cabe0a9-41e9-447f-9e7d-f74e18706fcb
+		sourceLineageTag: StoreID
+		summarizeBy: none
+		sourceColumn: StoreID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier for the customer’s sales territory. Use this field to group customers by geographic or organizational territory and to analyze regional performance. Do not aggregate or sum this key; use it as a grouping or join column only.
+	column TerritoryID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2f0fafef-b478-43d0-aee8-207865c83aa3
+		sourceLineageTag: TerritoryID
+		summarizeBy: none
+		sourceColumn: TerritoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer account number used to uniquely identify each customer account in business processes and reporting. Use this field as an identifier for customer-level analysis, lookups, and relationships. Do not summarize or aggregate this column; treat it as a key, not a measure.
+	column AccountNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ea09f0f0-96b3-4908-814b-18edaeca3d5b
+		sourceLineageTag: AccountNumber
+		summarizeBy: none
+		sourceColumn: AccountNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique customer row identifier used to distinguish each customer record in the model. Use only for lookup, joining, or tracing records; do not aggregate or summarize this field. Not intended for reporting measures or business analysis.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 016a99ff-b9ad-4a20-92db-e429349f7b7b
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The date and time when the customer record was last updated. Use this field to track recent changes, support data refresh validation, and analyze record activity over time. Do not summarize this field; use it as a date/time attribute, not as a numeric measure.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 6d9d94ac-dfb9-4740-bcad-5cc314411cd0
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer = entity
+		mode: directLake
+		source
+			entityName: Customer
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

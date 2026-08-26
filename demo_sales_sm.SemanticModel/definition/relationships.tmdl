@@ -1,0 +1,47 @@
+relationship 598f5561-6615-f936-d444-8f9f20e8e661
+	fromColumn: CurrencyRate.FromCurrencyCode
+	toColumn: Currency.CurrencyCode
+
+relationship cde29232-1b59-9b8e-6b09-ee46c0ae156e
+	isActive: false
+	fromColumn: CurrencyRate.ToCurrencyCode
+	toColumn: Currency.CurrencyCode
+
+relationship 995a956c-8fef-1985-94b1-cbf297bfe956
+	relyOnReferentialIntegrity
+	fromColumn: SalesOrderDetail.SalesOrderID
+	toColumn: SalesOrderHeader.SalesOrderID
+
+relationship 8a4c4f75-42c6-be60-5be6-4a730d39efb4
+	crossFilteringBehavior: bothDirections
+	fromColumn: ProductReview.ProductID
+	toColumn: Product.ProductID
+
+relationship 4ab7b685-19a7-534d-54ab-7b19482d6fb4
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: SalesPerson.BusinessEntityID
+	toColumn: Store.BusinessEntityID
+
+relationship afb86552-5613-812a-bb0c-3ea52d83791d
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: SalesPerson.BusinessEntityID
+	toColumn: Person.BusinessEntityID
+
+relationship b553d0fd-cec0-cf8f-daf5-adbf96732d71
+	fromColumn: SalesOrderHeader.CustomerID
+	toColumn: Customer.CustomerID
+
+relationship 0ce4e3ed-10a0-002d-3553-0d0dcb416b80
+	fromColumn: SalesOrderHeader.TerritoryID
+	toColumn: SalesTerritory.TerritoryID
+
+relationship e66ddd1d-af97-5069-2d54-8c67a353f086
+	fromColumn: SalesOrderHeader.SalesPersonID
+	toColumn: Store.SalesPersonID
+
+relationship ff34874c-33f6-f5d0-366c-e9bc58b35f9d
+	fromColumn: SalesTerritory.TerritoryID
+	toColumn: StateProvince.TerritoryID
+

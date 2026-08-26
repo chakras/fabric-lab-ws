@@ -1,0 +1,111 @@
+/// **Business purpose:** Stores customer or product reviewer feedback for each product, including review details, rating, and comments. Supports analysis of product sentiment, review volume, and recency of feedback.
+/// 
+/// **Expected grain:** One row per product review. `ProductReviewID` is the unique business identifier and should not be aggregated. `Rating` is numeric and can be averaged or summarized.
+/// 
+/// **Reporting usage:** Use for review trend analysis, product quality monitoring, and customer feedback reporting by product, reviewer, date, and rating.
+table ProductReview
+	lineageTag: 8ff47602-9393-4a17-9a96-82f3a4d69bde
+	sourceLineageTag: [dbo].[ProductReview]
+
+	/// Unique identifier for each product review record. Use this key to link reviews to related tables and to reference a specific review in reporting or analysis. Do not summarize or aggregate this column; treat it as an ID only.
+	column ProductReviewID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1d0dcad3-5890-4c89-a7a4-be1a48389a8a
+		sourceLineageTag: ProductReviewID
+		summarizeBy: count
+		sourceColumn: ProductReviewID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business key identifying the product associated with each review. Use this to link review records to the product dimension or product master data. Do not summarize or aggregate this field; treat it as an identifier, not a measure.
+	column ProductID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 05379c36-5b03-4c68-bc4a-bad4c09dc91d
+		sourceLineageTag: ProductID
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Name of the person who submitted the product review. Use this field to identify or filter reviews by reviewer, and for display in reports. Do not summarize this field; it should be treated as a text attribute, not aggregated.
+	column ReviewerName
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f4de661b-733c-42f0-a989-76419a41a72c
+		sourceLineageTag: ReviewerName
+		summarizeBy: none
+		sourceColumn: ReviewerName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Record date and time when the product review was submitted. Use this field to analyze review trends over time, such as monthly or weekly volumes. Do not summarize this column directly; use it for grouping, filtering, and time-based analysis instead.
+	column ReviewDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: a1de53fa-1ded-4f9c-96d2-6672fce01110
+		sourceLineageTag: ReviewDate
+		summarizeBy: none
+		sourceColumn: ReviewDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer email address captured with the product review. Use this field to identify or contact the reviewer and link feedback to a customer record. Do not summarize or aggregate this text field; treat it as a descriptive attribute, not a key.
+	column EmailAddress
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 07b2a1da-4a14-45f5-a380-65bee1a6194f
+		sourceLineageTag: EmailAddress
+		summarizeBy: none
+		sourceColumn: EmailAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Customer satisfaction score assigned to a product review, typically on a rating scale. Use this field to analyze review quality, compare products, and track sentiment trends. Summarize with average, count, or distribution; avoid summing ratings, as totals are not meaningful.
+	column Rating
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f6218ae4-d456-4017-a161-a9c254b48a52
+		sourceLineageTag: Rating
+		summarizeBy: sum
+		sourceColumn: Rating
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Free-text feedback written by customers about the product review. Use it to understand sentiment, issues, and suggestions. This field is not intended for aggregation; summarize by counting reviews or analyzing text themes, not by summing or averaging.
+	column Comments
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 35dbbb82-1fd4-4abc-a4ec-2162a1af16c7
+		sourceLineageTag: Comments
+		summarizeBy: none
+		sourceColumn: Comments
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Records the date and time when the product review was last updated. Use it to track review changes and freshness over time. This is a date/time field and should be analyzed by date hierarchy, not summarized or aggregated.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 1c3857d9-94e3-4a3f-b32e-91f4f9d43a33
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ProductReview = entity
+		mode: directLake
+		source
+			entityName: ProductReview
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

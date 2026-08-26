@@ -1,0 +1,136 @@
+/// **Business purpose:** Stores sales territory master data used to organize sales performance by geographic region and market group.  
+/// **Expected grain:** One row per sales territory.  
+/// **Reporting usage:** Use TerritoryID as the unique identifier. Name, CountryRegionCode, and Group support slicing and categorization. Sum SalesYTD, SalesLastYear, CostYTD, and CostLastYear for territory performance analysis. ModifiedDate supports data freshness tracking.
+table SalesTerritory
+	lineageTag: d948b1e7-cc5c-4e00-8ba5-c4a590ff722d
+	sourceLineageTag: [dbo].[SalesTerritory]
+
+	/// Unique identifier for each sales territory. Use this key to relate territory records to sales, customers, and geography data. Do not sum or average this field; treat it as an identifier only.
+	column TerritoryID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e3c72f06-5883-48cd-8e5a-de6ac5cf4d57
+		sourceLineageTag: TerritoryID
+		summarizeBy: none
+		sourceColumn: TerritoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sales territory name used to identify the commercial region, market, or geographic area assigned to sales activity. Use this field to group and filter sales performance by territory. Do not summarize this text field; use it as a category label only.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a4eea2ef-1f47-4a31-be97-662d36baae6b
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Country or region code for the sales territory, used to identify the geographic market associated with each territory. Use as a lookup or filtering field only; do not aggregate or summarize.
+	column CountryRegionCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7cc3d70a-d153-499c-85ea-07f3ee124d10
+		sourceLineageTag: CountryRegionCode
+		summarizeBy: none
+		sourceColumn: CountryRegionCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Geographic sales region group used to classify territories for reporting and performance analysis. Use to segment sales by broad market area. Do not summarize; treat as a categorical attribute and use only for grouping, filtering, and slicing results.
+	column Group
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 92b4bb3b-4bc6-43f3-85ca-34558eeffc1f
+		sourceLineageTag: Group
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Year-to-date sales amount for the territory, representing cumulative revenue earned within the current fiscal year. Use this measure to compare territory performance over time or across regions. Summarize by **Sum** when analyzing totals; avoid averaging unless comparing territory-level average performance.
+	column SalesYTD
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 1148e455-e1e3-43cc-abb7-e01ad4de4a3e
+		sourceLineageTag: SalesYTD
+		summarizeBy: sum
+		sourceColumn: SalesYTD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Last year’s total sales amount for the territory. Use this measure to compare territory performance and analyze sales trends over time. Sum or average only if needed for reporting; typically summarize at territory or higher levels rather than at the individual record level.
+	column SalesLastYear
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 91460ac9-b673-43f7-ac8d-fe49898648cf
+		sourceLineageTag: SalesLastYear
+		summarizeBy: sum
+		sourceColumn: SalesLastYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Year-to-date cost for the sales territory, showing total costs accumulated from the start of the current year through the reporting date. Use this metric to analyze territory expense trends and performance. Summarize as **Sum** for reporting and comparisons.
+	column CostYTD
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: ea31b223-84f2-4ec0-9ed5-44f3dbf14606
+		sourceLineageTag: CostYTD
+		summarizeBy: sum
+		sourceColumn: CostYTD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Last year’s total territory cost, used to analyze and compare sales territory expense performance over time. Summarize by **Sum** for reporting and trend analysis. Use at the territory level; do not treat this as a key or unique identifier.
+	column CostLastYear
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 64a8ddf2-61e7-4c2c-b57a-e8cd027ccc91
+		sourceLineageTag: CostLastYear
+		summarizeBy: sum
+		sourceColumn: CostLastYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Unique row identifier for each SalesTerritory record. Used as a technical key to distinguish territory rows and support relationships. Do not summarize or aggregate this column; use only for record-level identification and joins.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5217974f-9dc7-40de-836a-598650caaf0a
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the sales territory record was last updated. Use this field to track the most recent change to territory details for auditing and data freshness checks. Do not aggregate; treat as a descriptive date/time field for filtering and timeline analysis only.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 69911ae0-c808-4b2e-a8f6-42cbd196ee11
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesTerritory = entity
+		mode: directLake
+		source
+			entityName: SalesTerritory
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

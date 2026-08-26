@@ -1,0 +1,52 @@
+/// **Business purpose:** Stores the list of currencies used in the business, including each currency’s code and display name for financial reporting and reference.  
+/// 
+/// **Expected grain:** One row per currency code. CurrencyCode is the unique identifier.  
+/// 
+/// **Reporting usage:** Use for labeling and filtering currency-related transactions and reports; do not aggregate this table.
+table Currency
+	lineageTag: a1fcc869-b483-4085-886b-734816dd48c6
+	sourceLineageTag: [dbo].[Currency]
+
+	/// Unique code that identifies each currency in the business, such as USD or EUR. Use this field to classify, filter, or relate currency records across models. Do not summarize or aggregate this column; it should be treated as a key or categorical identifier.
+	column CurrencyCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 77d9a02a-a558-4a2b-a374-61888cc5f1ce
+		sourceLineageTag: CurrencyCode
+		summarizeBy: none
+		sourceColumn: CurrencyCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Displays the currency name used in reporting and transactions, such as US Dollar or Euro. Use this field to identify and label currencies in analysis and filters. Do not summarize or aggregate this text field; use it as a descriptive category only.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 933804b1-8538-469f-8078-db866c799b80
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the currency record was last updated in the source system. Use this field to audit changes, track data freshness, and analyze maintenance activity. Do not summarize this field; use it as a detail or filter only.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 913d665a-f747-4e87-ba70-a5fced398fb9
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Currency = entity
+		mode: directLake
+		source
+			entityName: Currency
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

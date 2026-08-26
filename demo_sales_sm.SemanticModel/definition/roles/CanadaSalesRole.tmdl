@@ -1,0 +1,9 @@
+role CanadaSalesRole
+	modelPermission: read
+
+	tablePermission SalesOrderHeader = [TerritoryID] == 6
+
+	tablePermission SalesTerritory = [TerritoryID] == 6
+
+	annotation PBI_Id = 722b27b3fba6445dbef8be197851ef47
+

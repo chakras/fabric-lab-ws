@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pipeline-copy-data-using-akv"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "587c43b7-12b2-adbb-46ef-811847f3f8d6"
+  }
+}

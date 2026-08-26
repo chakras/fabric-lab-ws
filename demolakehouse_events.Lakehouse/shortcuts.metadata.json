@@ -1,0 +1,15 @@
+[
+  {
+    "name": "OrderHistory",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/dbo/OrderHistory",
+        "itemId": "d69dcf2c-f091-adc0-40b8-996a87705d7e",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "MountedRelationalDatabase"
+      }
+    }
+  }
+]

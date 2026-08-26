@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/fewShots/1.0.0/schema.json",
+  "fewShots": [
+    {
+      "id": "f54fbe30-41fd-45ed-9393-3195ea910d25",
+      "question": "Show the monthly sales",
+      "query": "SELECT\r\n    YEAR(soh.OrderDate)            AS OrderYear,\r\n    MONTH(soh.OrderDate)           AS OrderMonth,\r\n    DATENAME(MONTH, soh.OrderDate) AS MonthName,\r\n    SUM(soh.SubTotal)              AS MonthlySales\r\nFROM SalesOrderHeader soh\r\nGROUP BY YEAR(soh.OrderDate), MONTH(soh.OrderDate), DATENAME(MONTH, soh.OrderDate)\r\nORDER BY OrderMonth;"
+    },
+    {
+      "id": "4e8527a3-cf79-4597-8bfa-104529ba4af6",
+      "question": "Who are the top 10 customers by total spend?",
+      "query": "SELECT TOP 10\r\n    c.CustomerID,\r\n    COALESCE(p.FirstName + ' ' + p.LastName, s.Name) AS CustomerName,\r\n    SUM(soh.SubTotal) AS TotalSpend,\r\n    COUNT(*)          AS Orders\r\nFROM SalesOrderHeader soh\r\nJOIN Customer c     ON soh.CustomerID = c.CustomerID\r\nLEFT JOIN Person p ON c.PersonID = p.BusinessEntityID\r\nLEFT JOIN Store s   ON c.StoreID = s.BusinessEntityID\r\nGROUP BY c.CustomerID, p.FirstName, p.LastName, s.Name\r\nORDER BY TotalSpend DESC;"
+    },
+    {
+      "id": "476857af-681b-43e6-9259-429958d94712",
+      "question": "What is estimated product profitability by category?",
+      "query": "SELECT\r\n    pc.Name AS Category,\r\n    SUM(sod.LineTotal)                 AS Revenue,\r\n    SUM(sod.OrderQty * p.StandardCost) AS EstimatedCost,\r\n    SUM(sod.LineTotal - sod.OrderQty * p.StandardCost) AS EstimatedGrossProfit\r\nFROM SalesOrderDetail sod\r\nJOIN Product p              ON sod.ProductID = p.ProductID\r\nJOIN ProductSubcategory psc ON p.ProductSubcategoryID = psc.ProductSubcategoryID\r\nJOIN ProductCategory pc     ON psc.ProductCategoryID = pc.ProductCategoryID\r\nGROUP BY pc.Name\r\nORDER BY EstimatedGrossProfit DESC;"
+    },
+    {
+      "id": "b10ebb66-9944-4f28-9b18-6794a1662778",
+      "question": "What is the average order value by territory?",
+      "query": "SELECT\r\n    st.Name AS Territory,\r\n    st.CountryRegionCode,\r\n    SUM(soh.SubTotal) AS TotalSales,\r\n    COUNT(*)          AS OrderCount,\r\n    CAST(SUM(soh.SubTotal) / NULLIF(COUNT(*), 0) AS DECIMAL(10,2)) AS AvgOrderValue\r\nFROM SalesOrderHeader soh\r\nJOIN SalesTerritory st ON soh.TerritoryID = st.TerritoryID\r\nGROUP BY st.Name, st.CountryRegionCode\r\nORDER BY AvgOrderValue DESC;"
+    },
+    {
+      "id": "519333a6-68cf-4073-9d23-ee4c35c748ea",
+      "question": "What are total sales by territory and country?",
+      "query": "SELECT\r\n    st.Name             AS Territory,\r\n    st.CountryRegionCode,\r\n    SUM(soh.SubTotal)   AS TotalSales\r\nFROM SalesOrderHeader soh\r\nJOIN SalesTerritory st ON soh.TerritoryID = st.TerritoryID\r\nGROUP BY st.Name, st.CountryRegionCode\r\nORDER BY TotalSales DESC;"
+    },
+    {
+      "id": "bfec1ef7-ad97-4834-a4e7-e3029b99a9fa",
+      "question": "Compare online vs. offline sales by year.",
+      "query": "SELECT\r\n    CASE WHEN soh.OnlineOrderFlag = 1 THEN 'Online (Internet)'\r\n         ELSE 'Offline (Reseller / Rep)' END AS Channel,\r\n    YEAR(soh.OrderDate) AS OrderYear,\r\n    SUM(soh.SubTotal)   AS TotalSales,\r\n    COUNT(*)            AS OrderCount\r\nFROM SalesOrderHeader soh\r\nGROUP BY soh.OnlineOrderFlag, YEAR(soh.OrderDate)\r\nORDER BY OrderYear, Channel;"
+    }
+  ]
+}

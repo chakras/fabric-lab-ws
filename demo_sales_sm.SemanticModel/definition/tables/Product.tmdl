@@ -1,0 +1,308 @@
+/// Master product dimension used to analyze the product catalog, pricing, costs, attributes, and lifecycle dates. Grain is one row per product. Use ProductID as the business key and do not sum identifier fields. Aggregate numeric measures such as StandardCost, ListPrice, Weight, SafetyStockLevel, and ReorderPoint only as needed.
+table Product
+	lineageTag: 7c8d613c-f552-4d57-94e8-5b5d71f2abbe
+	sourceLineageTag: [dbo].[Product]
+
+	/// Unique identifier for each product in the catalog. Use this key to relate Product to other tables and identify product records. Do not summarize or aggregate this column; it should be treated as an ID only.
+	column ProductID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: befc6298-5ac4-4250-b3ae-0b7d7b402cd7
+		sourceLineageTag: ProductID
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product name. Identifies the business name of each product sold or managed in the catalog. Use it for reporting, filtering, and grouping products by label. This is a text field and should not be summarized or aggregated.
+	column Name
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5e0ca3e6-c4ba-412c-951b-f2e49da881a1
+		sourceLineageTag: Name
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business identifier for each product in the catalog. Use this column to uniquely identify, search, and relate product records across business processes. Do not summarize or aggregate this field; treat it as a key/reference value rather than a measurable metric.
+	column ProductNumber
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d7e419cc-617a-4f0b-9fff-ae82b5d65beb
+		sourceLineageTag: ProductNumber
+		summarizeBy: none
+		sourceColumn: ProductNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the product is a make-to-order item or produced internally. Use this field to segment products by manufacturing source or planning strategy. Do not summarize; treat as a categorical flag for filtering, grouping, or counting products.
+	column MakeFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 742b5d1c-6f85-4c7b-a004-9b1019b6dae0
+		sourceLineageTag: MakeFlag
+		summarizeBy: none
+		sourceColumn: MakeFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicates whether the product is a finished good ready for sale. Use this flag to filter, segment, and report on finished goods versus non-finished items. Do not summarize this column; treat it as a categorical yes/no attribute.
+	column FinishedGoodsFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 5899f839-651f-4b5c-9964-77aa332277fc
+		sourceLineageTag: FinishedGoodsFlag
+		summarizeBy: none
+		sourceColumn: FinishedGoodsFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product color as used in the business catalog, such as Red, Blue, or Black. Use this field to segment products by color in reports and filters. Do not summarize this column; it should be used as a category or slicer only.
+	column Color
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d3d8a480-e813-4f13-9ee1-ffc04caca580
+		sourceLineageTag: Color
+		summarizeBy: none
+		sourceColumn: Color
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Minimum inventory level kept on hand for the product to help avoid stockouts. Use this field to monitor replenishment thresholds and inventory planning. Numeric field should be summarized as **Sum** only when analyzing total safety stock across products; otherwise review at the individual product level.
+	column SafetyStockLevel
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: 4551ad57-b2a3-470a-a42f-11d1dd935e30
+		sourceLineageTag: SafetyStockLevel
+		summarizeBy: none
+		sourceColumn: SafetyStockLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Minimum stock level that signals when a product should be replenished. Used in inventory planning and reorder alerts to help avoid stockouts. For reporting, summarize as **Average** or **Minimum** rather than **Sum**, since it is a threshold value, not a quantity to total.
+	column ReorderPoint
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: f40e6c7d-2e56-429a-beaf-3e168d6da362
+		sourceLineageTag: ReorderPoint
+		summarizeBy: none
+		sourceColumn: ReorderPoint
+
+		annotation SummarizationSetBy = Automatic
+
+	/// StandardCost is the average unit cost to produce or purchase a product. Use it to analyze product margin and profitability. Sum only if you need total cost across products; otherwise, compare at the product level or use average cost for analysis.
+	column StandardCost
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: f953c547-9852-458e-bd5f-f1fd3c2f49b7
+		sourceLineageTag: StandardCost
+		summarizeBy: none
+		sourceColumn: StandardCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Standard list price charged for the product. Use this amount for pricing analysis, margin calculations, and comparison to actual selling prices. Summarize as **Average** or **Min/Max** for reporting; avoid summing across products unless reviewing total catalog price value.
+	column ListPrice
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 5a953d14-2a65-4134-8d61-a23c0aab8c2c
+		sourceLineageTag: ListPrice
+		summarizeBy: none
+		sourceColumn: ListPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Indicates the product’s size classification or dimension, such as Small, Medium, or Large. Use this field to group, filter, and compare products by size. Do not summarize; treat as a categorical attribute only.
+	column Size
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b9dcef3a-bdba-403e-82d9-ed58584a9742
+		sourceLineageTag: Size
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unit of measure code for the product’s size, such as each, pack, or case. Use this field to identify how product size is expressed in business reporting. Do not summarize; treat as a categorical attribute used for filtering, grouping, and labeling, not aggregation.
+	column SizeUnitMeasureCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 150de84c-7ec7-44c0-a202-2ff95c5258e8
+		sourceLineageTag: SizeUnitMeasureCode
+		summarizeBy: none
+		sourceColumn: SizeUnitMeasureCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unit of measure code used to describe the product’s weight, such as kilograms or pounds. Use this field to identify how a product’s weight is recorded in the business. Do not summarize; treat as a categorical attribute, not a numeric measure.
+	column WeightUnitMeasureCode
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: daba231a-3a14-4f11-b5c3-ae291136bc7b
+		sourceLineageTag: WeightUnitMeasureCode
+		summarizeBy: none
+		sourceColumn: WeightUnitMeasureCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product weight, measured as a decimal value. Use this field to compare product size or shipping characteristics. Sum or average only when analyzing total or typical weight across products; otherwise treat it as a product attribute, not a key performance measure.
+	column Weight
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(8, 2)
+		lineageTag: 59d13f56-4c5b-47ae-a767-3c77e2a18bd6
+		sourceLineageTag: Weight
+		summarizeBy: none
+		sourceColumn: Weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Number of days required to manufacture the product from start to finish. Use this field to understand production lead time and compare manufacturing complexity across products. Summarize with average, minimum, or maximum for analysis; avoid summing unless measuring total production days across many items.
+	column DaysToManufacture
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 97edde11-ea12-4cfb-8fd0-8a1e7aa891ed
+		sourceLineageTag: DaysToManufacture
+		summarizeBy: none
+		sourceColumn: DaysToManufacture
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product line category for each product, such as a family or range used to group similar products for reporting and analysis. Use this field to slice sales, inventory, and performance by product group. Do not summarize; treat as a descriptive attribute, not a measure.
+	column ProductLine
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a0df03a2-e1ed-493d-92bf-8b735af1974d
+		sourceLineageTag: ProductLine
+		summarizeBy: none
+		sourceColumn: ProductLine
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product class category describing the grouping or tier assigned to each product. Use this field to segment products for reporting and analysis by class. Do not summarize this column; treat it as a categorical attribute used for grouping, filtering, and slicing results.
+	column Class
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 82fa9ad1-f626-4bfd-be62-5806a1698821
+		sourceLineageTag: Class
+		summarizeBy: none
+		sourceColumn: Class
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Product style or design variant assigned to the product. Use to classify and group products by their style for reporting and analysis. Text attribute only; do not summarize or aggregate.
+	column Style
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c9e0c8bf-4eb5-44b4-97ea-337749ded2e3
+		sourceLineageTag: Style
+		summarizeBy: none
+		sourceColumn: Style
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identifier for the product subcategory linked to each product. Use this key to group products by subcategory or relate to subcategory lookup tables. Do not summarize or aggregate this field; treat it as a categorical identifier, not a numeric measure.
+	column ProductSubcategoryID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e88444f2-a5e7-4aef-8457-ffd391d9f61d
+		sourceLineageTag: ProductSubcategoryID
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique identifier for the product model record. Use this key to relate Product to product model details and to distinguish one model from another. Do not summarize or aggregate this field; use it only for filtering, joins, and row-level identification.
+	column ProductModelID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4e782887-4b0c-4432-97da-06553a606067
+		sourceLineageTag: ProductModelID
+		summarizeBy: none
+		sourceColumn: ProductModelID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The date and time this product began selling. Use to analyze product launch timing, sales trends, and lifecycle performance. Do not aggregate this field; use it as a detail, filter, or date dimension attribute rather than a summarized measure.
+	column SellStartDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 8f255431-3c37-4c6d-98e2-b638cede656f
+		sourceLineageTag: SellStartDate
+		summarizeBy: none
+		sourceColumn: SellStartDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the product is no longer available for sale. Use to analyze product lifecycle, discontinuations, and availability over time. This is a date field and should not be summarized; use it for filtering, slicing, or timeline analysis.
+	column SellEndDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 989fa3d7-e1a1-43a9-9a5f-e4410a512431
+		sourceLineageTag: SellEndDate
+		summarizeBy: none
+		sourceColumn: SellEndDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date and time when the product was discontinued and removed from active sale. Use this to analyze product lifecycle, availability, and historical performance. Do not summarize this field; display it as a date or use it only for filtering, grouping, or period analysis.
+	column DiscontinuedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: eaf21d4e-2631-41d7-96e0-57b4c5439318
+		sourceLineageTag: DiscontinuedDate
+		summarizeBy: none
+		sourceColumn: DiscontinuedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unique business row identifier for each Product record. Used to distinguish and track individual products across systems and processes. Do not summarize or aggregate this field; treat it as a key/identifier only.
+	column rowguid
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 49302506-3163-43b0-a0df-55c1fccb1ba1
+		sourceLineageTag: rowguid
+		summarizeBy: none
+		sourceColumn: rowguid
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Records the date and time when the product record was last updated. Use this field to track data freshness, maintenance activity, and change history. This is a date/time attribute and should not be summarized or aggregated.
+	column ModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: d5289541-db29-468d-9e90-fdeb5814bd3a
+		sourceLineageTag: ModifiedDate
+		summarizeBy: none
+		sourceColumn: ModifiedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product = entity
+		mode: directLake
+		source
+			entityName: Product
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
