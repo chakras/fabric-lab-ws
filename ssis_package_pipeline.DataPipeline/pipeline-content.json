@@ -1,0 +1,72 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "ExecuteSSISPackage",
+        "typeProperties": {
+          "packageLocation": {
+            "packagePath": "SSISPackages/Load_Product_Package.dtsx",
+            "type": "File",
+            "typeProperties": {
+              "connectionSettings": {
+                "name": "demolakehouse_events",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "0a94ba5c-4279-a32c-43ae-6f154afb14c8",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                },
+                "objectId": "4afb14c8-6f15-43ae-a32c-42790a94ba5c"
+              }
+            }
+          },
+          "loggingLevel": "Basic",
+          "packageParameters": {
+            "paramETLType": {
+              "value": "SSIS-Fabric-DF"
+            }
+          },
+          "projectConnectionManagers": {},
+          "packageConnectionManagers": {
+            "demosqldbserver.database.windows.net.demoadventureworksdb.sqldbadmin": {
+              "Password": {
+                "value": "r00t@dmin@1234"
+              }
+            }
+          },
+          "logLocation": {
+            "logPath": "Logging",
+            "type": "File",
+            "typeProperties": {
+              "connectionSettings": {
+                "name": "demolakehouse_events",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "0a94ba5c-4279-a32c-43ae-6f154afb14c8",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                },
+                "objectId": "4afb14c8-6f15-43ae-a32c-42790a94ba5c"
+              }
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Invoke SSIS package1",
+        "dependsOn": []
+      }
+    ]
+  }
+}

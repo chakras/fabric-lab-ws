@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "ssis_package_pipeline"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ba744ad7-a5e3-9de3-415a-51cb3b1febfe"
+  }
+}
